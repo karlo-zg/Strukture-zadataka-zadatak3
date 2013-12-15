@@ -1,0 +1,73 @@
+struct dat{
+       int dan;
+       int mjesec;
+       int godina;
+       };
+       
+       
+       
+struct detalji{
+       int ai;
+       int bi;
+       int ci;
+       int di;
+       int ei;
+       };
+       
+       
+       
+struct pacijenti{
+       dat datum;
+       int spol;
+       char ime_pre[50];
+       detalji vrsta;
+       };
+       
+       
+       
+struct RED{
+       int pocetak;
+       int kraj;
+       pacijenti polje[1000];
+       };
+       
+       
+void InitQ(RED &red){
+     red.pocetak=0;
+     red.kraj=999;
+     }  
+          
+          
+          
+int AddOne(int i){
+    return((i+1)%1000);
+    }
+    
+    
+    
+pacijenti FrontQ(RED *red){
+          return ((*red).polje[(*red).pocetak]);
+          }
+          
+
+
+
+void EnQueueQ(pacijenti x, RED &red){
+     
+     red.pocetak=AddOne(red.pocetak);
+     red.polje[red.pocetak]=x;
+     
+     }
+     
+     
+     
+void DeQueueQ(RED *red){
+     red.pocetak = AddOne(red.pocetak);
+     }
+     
+     
+
+     
+bool IsEmptyQ(RED *red){
+     return (AddOne((*red).kraj)==(*red).pocetak);
+     }
