@@ -1,0 +1,79 @@
+struct dat{
+       int dan;
+       int mjesec;
+       int godina;
+       };
+       
+struct detalji{
+       int ai;
+       int bi;
+       int ci;
+       int di;
+       int ei;
+       };
+       
+struct pacijenti{
+       dat datum;
+       int spol;
+       char ime_pre[50];
+       detalji vrsta;
+       };
+       
+struct listapacijenata{
+       
+       listapacijenata *sljedeci;
+       pacijenti PACIJENTI;
+       };
+
+struct RED{
+       listapacijenata *pocetak;
+       listapacijenata *kraj;
+       
+       };
+       
+       
+pacijenti FrontQ(RED *red){
+          return ((*(*(*red).pocetak).sljedeci).PACIJENTI);
+          
+          }
+
+
+void EnQueueQ(pacijenti x, RED *red){
+     listapacijenata *novi = new listapacijenata;
+     (*novi).PACIJENTI = x;
+     (*novi).sljedeci = NULL;
+     (*(*red).kraj).sljedeci = novi;
+     (*red).kraj = novi;
+     
+     }
+
+     
+     
+void DeQueueQ(RED *red){
+     listapacijenata *brisi = (*red).pocetak;
+     (*red).pocetak = (*(*red).pocetak).sljedeci;
+     delete brisi;
+     
+     }
+     
+     
+void InitQ(RED *red){
+     listapacijenata *beg = new listapacijenata;
+     (*red).pocetak = beg;
+     (*red).kraj = beg;
+     (*beg).sljedeci = NULL;
+     
+     }
+     
+     
+bool IsEmptyQ(RED *red){
+     return ((*red).pocetak == (*red).kraj);
+     
+     }
+     
+     
+       
+       
+       
+       
+       
