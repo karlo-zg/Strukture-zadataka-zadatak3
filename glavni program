@@ -1,0 +1,272 @@
+#include <iostream>
+#include <windows.h>
+#include <time.h>
+#include <windows.h>
+#include "red_polje.h"
+//#include "red_pokazivaci.h"
+using namespace std;
+
+RED gl_red;
+pacijenti *x;
+
+int brljudi;
+
+void unos(char *znak_niz){
+     
+     cin.getline(znak_niz, 100);
+     if(cin.gcount()==1)
+                        cin.getline(znak_niz, 100);
+     }
+     
+void ispis(pacijenti PACIJENTI){
+     
+     cout << "Ime i prezime: ";
+     cout << PACIJENTI.ime_pre << endl;
+     cout << "Datum rodjenja: ";
+     cout << PACIJENTI.datum.dan << "."<< PACIJENTI.datum.mjesec << "." << PACIJENTI.datum.godina << endl;
+     cout << "Spol: ";
+     if(PACIJENTI.spol == 0) 
+                       cout << "Z" << endl;
+     if(PACIJENTI.spol == 1) 
+                       cout << "M" << endl;
+     
+     cout << "Prioritet: " ;
+     if(PACIJENTI.vrsta.ci == 1) 
+                           cout << "Hitni" << endl;
+     if(PACIJENTI.vrsta.ci == 2) 
+                           cout << "Invalid" << endl;
+     if(PACIJENTI.vrsta.ci == 3) 
+                           cout << "Trudnica" << endl;
+     if(PACIJENTI.vrsta.ci == 4) 
+                           cout << "Djeca ispod 6 godina" << endl;
+     if(PACIJENTI.vrsta.ci == 5) 
+                           cout << "Ostali" << endl;
+     
+     
+     cout << "Vrsta usluge potrebna: " ;
+     if(PACIJENTI.vrsta.di == 1) 
+                           cout << "Pregled" << endl;
+     if(PACIJENTI.vrsta.di == 2) 
+                           cout << "Previjanje" << endl;
+     if(PACIJENTI.vrsta.di == 3) 
+                           cout << "Recept" << endl;
+     if(PACIJENTI.vrsta.di == 4) 
+                           cout << "Uputnica" << endl;
+     
+     cout << "Ordinacija: ";
+     if(PACIJENTI.vrsta.ei == 1) 
+                           cout << "Obiteljska medicina" << endl;
+     if(PACIJENTI.vrsta.ei == 2) 
+                           cout << "Oftalmolog" << endl;
+     if(PACIJENTI.vrsta.ei == 3) 
+                           cout << "Dermatovenerologija" << endl;
+     if(PACIJENTI.vrsta.ei == 4) 
+                           cout << "Ginekologija" << endl;
+     if(PACIJENTI.vrsta.ei == 5) 
+                           cout << "Urologija" << endl;
+     cout << endl;
+     
+     }
+     
+void ntorke(){
+     srand(time(NULL));
+     x = new pacijenti[brljudi*3];
+     for(int i=0;i<brljudi*3;i=i+3)
+     {
+             pacijenti pom;
+             while(pom.vrsta.ci==1 && pom.vrsta.ei==1 || pom.vrsta.ci==3 && pom.vrsta.ei==5)
+             {
+                                   pom.vrsta.ai = rand()%250+50;
+                                   pom.vrsta.bi = rand()%250+50;
+                                   pom.vrsta.ci = rand()%5+1;
+                                   pom.vrsta.di = rand()%4+1;
+                                   pom.vrsta.ei = rand()%5+1;
+                                   } 
+             
+             for(int j=0;j<3;j++){
+                              x[i+j].vrsta.ai = pom.vrsta.ai;
+                              x[i+j].vrsta.bi = pom.vrsta.bi;
+                              x[i+j].vrsta.ci = pom.vrsta.ci;
+                              x[i+j].vrsta.di = pom.vrsta.di;
+                              x[i+j].vrsta.ei = pom.vrsta.ei;
+                              }
+             }
+             cout << "N-torka generirana!" << endl << endl;
+     }
+     
+
+void upis_u_red(){
+     for(int i=0;i<brljudi*3;i++){
+             x[i].spol = rand()%2;
+             x[i].datum.dan = rand()%31+1;
+             x[i].datum.mjesec = rand()%12+1;
+             x[i].datum.godina = rand()%80+1920;
+             if(x[i].vrsta.ci == 3 && x[i].vrsta.ei == 4) 
+                                 x[i].spol=0;
+             if(x[i].vrsta.ei==5) 
+                                  x[i].spol=1;
+             if(x[i].vrsta.ci==4) 
+                                  x[i].datum.godina=rand()%5+2008;
+             cout << "Prioritet: ";
+             if(x[i].vrsta.ci == 1) 
+                              cout << "Hitni" << endl;
+             if(x[i].vrsta.ci == 2) 
+                              cout << "Invalid" << endl;
+             if(x[i].vrsta.ci == 3) 
+                              cout << "Trudnica" << endl;
+             if(x[i].vrsta.ci == 4) 
+                              cout << "Djeca ispod 6 godina" << endl;
+             if(x[i].vrsta.ci == 5) 
+                              cout << "Ostali" << endl;
+                                   
+                                   
+             cout << "Vrsta usluge potrebna: ";
+             if(x[i].vrsta.di == 1)
+                              cout << "Pregled" << endl;
+             if(x[i].vrsta.di == 2)
+                              cout << "Previjanje" << endl;
+             if(x[i].vrsta.di == 3)
+                              cout << "Recept" << endl;
+             if(x[i].vrsta.di == 4)
+                              cout << "Uputnica" << endl;
+                      
+                      
+             cout << "Ordinacija: ";
+             if(x[i].vrsta.ei == 1)
+                              cout << "Obiteljska medicina" << endl;
+             if(x[i].vrsta.ei == 2)
+                              cout << "Oftalmolog" << endl;
+             if(x[i].vrsta.ei == 3)
+                              cout << "Dermatovenerologija" << endl;
+             if(x[i].vrsta.ei == 4)
+                              cout << "Ginekologija" << endl;
+             if(x[i].vrsta.ei == 5)
+                              cout << "Urologija" << endl;                    
+                      
+                      
+             cout << "Datum rodjenja: ";
+             cout << x[i].datum.dan << "."<< x[i].datum.mjesec << "." << x[i].datum.godina << endl;
+             cout << "Unesite ime i prezime: " << endl;
+             unos(x[i].ime_pre);
+             }
+             system("cls");
+             for(int i=1;i<brljudi*3;i++){
+                     int j=i-1;
+                     pacijenti pom = x[i];
+                     while(j>=0 && x[j].vrsta.ai > pom.vrsta.ai) x[j+1] = x[j--];
+                     x[j+1] = pom;
+                     }
+             EnQueueQ(x[0],&gl_red);
+             RED zene25;
+             InitQ(&zene25);
+             if(x[0].spol==0 && x[0].datum.godina<1988) EnQueueQ(x[0],&zene25);
+             for(int i=1;i<brljudi*3;i++){
+                     if(x[i].spol==0 && x[i].datum.godina<1988) 
+                                     EnQueueQ(x[i],&zene25);
+                     if(x[i].vrsta.ci < FrontQ(&gl_red).vrsta.ci) {
+                                      cout << "U ordinaciju primljen (preko reda): " << endl;
+                                      ispis(x[i]);
+                                      }
+                     else {
+                          cout << "U cekaonicu usao: "; ispis(x[i]);
+                          EnQueueQ(x[i],&gl_red);
+                          }
+     }
+     while(!IsEmptyQ(&gl_red)){
+                                         cout << "Na redu je: "; ispis(FrontQ(&gl_red));
+                                         DeQueueQ(&gl_red);
+                                         }
+     cout << endl << "Zene starije od 25 godina: " << endl << endl;
+     if(IsEmptyQ(&zene25)) cout << "Ne postoji takva" << endl;
+     while(!IsEmptyQ(&zene25)){
+                             ispis(FrontQ(&zene25));
+                             DeQueueQ(&zene25);
+                          }
+     }
+     
+
+void dodaj(){
+     for(int i=0;i<brljudi*3;i++) 
+             EnQueueQ(x[i], &gl_red);
+     }
+
+void okreni(){
+     pacijenti pom;
+     if(IsEmptyQ(&gl_red))
+                          return;
+     pom=FrontQ(&gl_red);
+     DeQueueQ(&gl_red);
+     okreni();
+     EnQueueQ(pom,&gl_red);
+     return;
+     }
+
+
+void obrisi(){
+     pacijenti pom;
+     if(IsEmptyQ(&gl_red)) 
+                              return;
+     pom = FrontQ(&gl_red);
+     DeQueueQ(&gl_red);
+     obrisi();
+     if (!(pom.vrsta.ci==2 && pom.datum.godina<1963))
+        EnQueueQ(pom,&gl_red);
+     return;
+     }
+
+
+void brzired(int n){
+     pacijenti pom;
+     if(n==0) 
+              return;
+     pom = FrontQ(&gl_red);
+     DeQueueQ(&gl_red);
+     brzired(n-1);
+     ispis(pom);
+     return;
+     }
+
+int main(){
+    InitQ(&gl_red);
+    int unos;
+ do{
+         cout << "1. generiranje n - torki" << endl;
+         cout << "2. ubacivanje u red" << endl;
+         cout << "3. izbacivanje iz reda svih invalida starijih od 50 godina" << endl;
+         cout << "4. otvaranje brzog reda" << endl;
+         cout << "9. izlaz " << endl << endl;
+         cin >> unos;
+         switch(unos){
+                        case 1: 
+                        cout << "Koliko ljudi zelite dodati?" << endl;
+                        cin >> brljudi;
+                        ntorke();
+                        break;
+                        case 2:
+                        upis_u_red();
+                        break;
+                        case 3:
+                        dodaj();
+                        obrisi();
+                        okreni();
+                        cout << "Stanje glavnog reda: " << endl;
+                             while(!IsEmptyQ(&gl_red)){
+                             ispis(FrontQ(&gl_red));
+                             DeQueueQ(&gl_red);
+                          }
+                        dodaj();
+                        break;
+                        case 4:
+                        cout << "Stanje brzog reda: " << endl;
+                        brzired(brljudi);
+                        cout << "Stanje glavnog reda: " << endl;
+                             while(!IsEmptyQ(&gl_red)){
+                             ispis(FrontQ(&gl_red));
+                             DeQueueQ(&gl_red);
+                          }
+                        break;
+                        }
+         }while(unos!=9);   
+
+    return 0;
+    }
